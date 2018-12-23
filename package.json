@@ -5,9 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
-  "deploy": "node ./node_modules/vue-gh-pages/index.js",
   "homepage": "git@github.com:andraFIB/test-calender.git",
   "dependencies": {
     "firebase": "^5.7.1",
