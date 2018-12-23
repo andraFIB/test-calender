@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.2664b9dd9534f1be5f4b843921b0ac77.js"
+  "/precache-manifest.4feeb8e6156d6aa1347463115c31081a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "test-calender"});
