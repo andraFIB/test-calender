@@ -7,6 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "deploy": "node ./node_modules/vue-gh-pages/index.js",
+  "homepage": "git@github.com:andraFIB/test-calender.git",
   "dependencies": {
     "firebase": "^5.7.1",
     "kalendar-vue": "^0.2.8",
@@ -26,7 +28,9 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "node-sass": "^4.9.0",
+    "push-dir": "^0.4.1",
     "sass-loader": "^7.0.1",
+    "vue-gh-pages": "^1.19.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
