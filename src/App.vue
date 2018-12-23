@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <h1 class="title">Personal Calender</h1>
+    <h1 class="title">Personal Calender Web App</h1>
     <transition name="fade">
        <div class="form" v-if="form">
         <a href="#" class="btn--exit" @click="closeForm">x</a>
@@ -41,6 +41,8 @@
       :config="config"
     >
     </full-calendar>
+
+    <div class="footer">&nbsp;</div>
   </div>
 </template>
 
@@ -57,18 +59,19 @@ export default {
     return {
       config: {
         eventLimit: 3,
-         header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month'
-            },
+        eventStartEditable: false,
+        header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month'
+          },
         eventClick: (event) => {
           this.selected = event;
           alert(this.selected.description);
           console.log(this.selected._id);
         },
       },
-       selected: {},
+      selected: {},
       form: false,
       date: '',
       color: '#000000',
@@ -78,8 +81,8 @@ export default {
         email: '',
         start: '',
       },
-      events: []
-    }
+      events: [],
+    };
   },
   methods: {
     closeForm() {
@@ -96,7 +99,7 @@ export default {
       //  console.log(this.selected);
     },
 
-     eventCreated(...test) {
+    eventCreated(...test) {
       console.log(test);
     },
 
@@ -111,23 +114,19 @@ export default {
       var b= `<a href="#" class="removebtn" @click="removeX">X</a>`;
       element.append( b);
     },
-
-
-
     dayClick(date, jsEvent, view) {
       this.date = date.format();
     },
     removeEvent() {
       //remove locally
-    this.$refs.calendar.$emit('remove-event', this.selected._id);
+      this.$refs.calendar.$emit('remove-event', this.selected._id);
+      //remove database (not working)
+      // this.selected = {};
+      //   this.$http.delete('https://vuejs-60074.firebaseio.com/data.json', { params: { title: this.selected._id } }).then(res => {
+      //   // this.refresh();
+      //   console.log(res.data);
 
-    //remove database (not working)
-    // this.selected = {};
-    //   this.$http.delete('https://vuejs-60074.firebaseio.com/data.json', { params: { title: this.selected._id } }).then(res => {
-    //   // this.refresh();
-    //   console.log(res.data);
-
-    //   });
+      //   });
     },
     addEvent() {
       //generate random color
@@ -140,7 +139,6 @@ export default {
         start: this.date,
         color: this.color,
       };
-
       //validate first
       if (this.event.title === "") {
         alert('Title must be filled');
@@ -154,7 +152,6 @@ export default {
         alert('color must be filled');
         return;
       }
-
       //store data using https vue resource
       this.$http.post('https://vuejs-60074.firebaseio.com/data.json', eventss)
         .then(response =>{
@@ -190,24 +187,33 @@ export default {
         resultArray.push(data[key]);
       }
       this.events = resultArray;
-      console.log(resultArray);
+        console.log(resultArray);
     });
   },
-
 };
 </script>
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 
 .title {
-  border-bottom: 1px solid black;
+  // border-bottom: 1px solid black;
+  padding:30px 0;
+  margin-bottom: 16px;
+  background-color: #ff3f63;
+  color: #fff;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -218,17 +224,17 @@ export default {
 }
 
 .removebtn {
-    color:black;
-		position: absolute;
-		top: 0;
-		right: 0;
-    width:13px;
-    height: 13px;
-    text-align:center;
-    border-radius:50%;
-    font-size: 10px;
-		cursor: pointer;
-    background-color: #FFF
+  color:black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width:13px;
+  height: 13px;
+  text-align:center;
+  border-radius:50%;
+  font-size: 10px;
+  cursor: pointer;
+  background-color: #FFF
 }
 .form {
   width: 50%;
@@ -240,12 +246,12 @@ export default {
     display: flex;
     justify-content: space-between;
     margin:2px 0;
+
     label {
-      // flex: 1;
       font-weight: bold;
     }
+
     input {
-      // flex: 1;
       width: 80%;
       padding: 2px;
       font-size: 16px;
@@ -273,10 +279,11 @@ export default {
         font-size: 20px;
         width: 30px;
         height: 30px;
-        top: 0;
+        top: -10px;
         right: -10px;
         border-radius: 50%;
         border:1px solid black;
+        transition: all .5s;
 
         &:hover {
           background: #5a88ca;
@@ -285,6 +292,13 @@ export default {
         }
       }
     }
+}
+
+.footer {
+  padding:30px 0;
+  margin-bottom: 16px;
+  background-color: #ff3f63;
+  color: #fff;
 }
 
 </style>
