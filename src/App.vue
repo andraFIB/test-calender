@@ -27,7 +27,7 @@
 
       </div>
     </transition>
-    <button v-if="selected.forRemove"  @click="removeEvent">Remove</button>
+    <button v-if="selected.forRemove"  class="btn btn-success" @click="removeEvent">Remove</button>
     <pre v-if="selected.forRemove">Remove {{ selected.forRemove }} (currently remove locally)</pre>
     <full-calendar :events="events"
       defaultView="month"
@@ -259,7 +259,10 @@ export default {
     }
 
   }
-    .btn {
+
+}
+
+ .btn {
       width: 20%;
       font-size: 16px;
       color: white;
@@ -292,7 +295,6 @@ export default {
         }
       }
     }
-}
 
 .footer {
   padding:30px 0;
